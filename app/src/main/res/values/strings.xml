@@ -2,4 +2,7 @@
     <string name="app_name">Bookshop</string>
     <string name="company_name">ZineddineBtc</string>
     <string name="from">from</string>
+    <string name="terms"><![CDATA[Terms & Conditions]]></string>
+    <string name="next">Next</string>
+    <string name="login">Login</string>
 </resources>
