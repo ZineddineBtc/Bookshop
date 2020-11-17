@@ -1,4 +1,4 @@
-package com.example.bookshop;
+package com.example.bookshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import com.example.bookshop.R;
+import com.example.bookshop.adapter.SliderAdapter;
 
 import java.util.Objects;
 

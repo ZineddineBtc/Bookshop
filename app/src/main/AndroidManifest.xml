@@ -5,6 +5,10 @@
 
     <dist:module dist:instant="true" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,13 +16,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SetProfileActivity"></activity>
-        <activity android:name=".RegisterActivity" />
-        <activity android:name=".CoreActivity" />
-        <activity android:name=".TermsActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".SliderActivity" />
-        <activity android:name=".LogoActivity">
+        <activity android:name=".activity.SetProfileActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity android:name=".activity.CoreActivity" />
+        <activity android:name=".activity.TermsActivity" />
+        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.SliderActivity" />
+        <activity android:name=".activity.LogoActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

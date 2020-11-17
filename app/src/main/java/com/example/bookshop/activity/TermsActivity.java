@@ -1,8 +1,10 @@
-package com.example.bookshop;
+package com.example.bookshop.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.bookshop.R;
 
 public class TermsActivity extends AppCompatActivity {
 

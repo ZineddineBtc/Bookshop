@@ -1,4 +1,4 @@
-package com.example.bookshop;
+package com.example.bookshop.adapter;
 
 import android.content.Context;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
+
+import com.example.bookshop.R;
 
 public class SliderAdapter extends PagerAdapter {
 

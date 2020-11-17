@@ -1,4 +1,4 @@
-package com.example.bookshop;
+package com.example.bookshop.model;
 
 public class User {
     private String id, name, city;
