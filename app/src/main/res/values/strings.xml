@@ -12,4 +12,9 @@
     <string name="by_creating_an_account_you_agree_on">By creating an account, you are agreeing to our</string>
     <string name="invalid_input">Invalid input</string>
     <string name="login_failed">Login failed</string>
+    <string name="register_failed">Registering failed</string>
+    <string name="invalid_email">Invalid email</string>
+    <string name="insufficient_password">Password must contain more than 7 digits</string>
+    <string name="already_registered">Already registered?</string>
+    <string name="register">Register</string>
 </resources>
