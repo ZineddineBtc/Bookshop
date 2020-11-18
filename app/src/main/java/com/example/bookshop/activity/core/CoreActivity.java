@@ -1,6 +1,7 @@
 package com.example.bookshop.activity.core;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.bookshop.R;
@@ -8,11 +9,14 @@ import com.example.bookshop.StaticClass;
 import com.example.bookshop.activity.core.fragment.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.Objects;
 
 public class CoreActivity extends AppCompatActivity {
 
@@ -29,7 +33,6 @@ public class CoreActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
-
     }
     @Override
     public void onBackPressed() {
