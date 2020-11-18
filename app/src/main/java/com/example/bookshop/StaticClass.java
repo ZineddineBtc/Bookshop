@@ -21,10 +21,8 @@ public class StaticClass {
     public static String PROFILE_FRAGMENT = "profile_fragment";
     public static String PROFILE_ACTIVITY = "profile_activity";
     public static String SET_PROFILE_ACTIVITY = "set_profile_activity";
-    public static String CHATS_FRAGMENT = "chats_fragment";
-    public static String EXPLORE_FRAGMENT = "explore_fragment";
+    public static String SEARCH_FRAGMENT = "explore_fragment";
     public static String PROFILE_PHOTO = "-profilePhoto";
-    public static String GALLERY = "gallery";
     public static int MAX_GALLERY_COUNT = 3;
 
 

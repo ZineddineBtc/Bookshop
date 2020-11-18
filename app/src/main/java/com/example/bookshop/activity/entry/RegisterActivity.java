@@ -1,4 +1,4 @@
-package com.example.bookshop.activity;
+package com.example.bookshop.activity.entry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,10 +10,10 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
+import com.example.bookshop.activity.TermsActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

@@ -17,11 +17,20 @@
     <string name="insufficient_password">Password must contain more than 7 digits</string>
     <string name="already_registered">Already registered?</string>
     <string name="register">Register</string>
-    <string name="city">Country</string>
+    <string name="city">City</string>
     <string name="finish">Finish</string>
     <string name="name">Name</string>
     <string name="set_up_profile">Set up Profile</string>
     <string name="no_photo_selected">No selected photo</string>
     <string name="invalid_name">Invalid name</string>
     <string name="unspecified_city">Unspecified city</string>
+    <string name="title_activity_core">CoreActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="no_results">No results</string>
+    <string name="title_search">Search</string>
+    <string name="title_profile">Profile</string>
+    <string name="error">Error</string>
+    <string name="sign_out">Sign out</string>
 </resources>

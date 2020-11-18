@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
-import com.example.bookshop.activity.SetProfileActivity;
+import com.example.bookshop.activity.core.fragment.ProfileFragment;
+import com.example.bookshop.activity.entry.SetProfileActivity;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
@@ -60,23 +62,22 @@ public class CitiesAdapter extends RecyclerView.Adapter<CitiesAdapter.ViewHolder
                 holder.cityTV.setTextColor(context.getColor(R.color.black));
                 holder.locationIV.setVisibility(View.GONE);
             }
-            /*
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ProfileFragment.shadeLL.setVisibility(View.GONE);
-                    ProfileFragment.countriesLL.setVisibility(View.GONE);
-                    ProfileFragment.countriesListShown = false;
-                    String newCountry = countriesList.get(position);
-                    ProfileFragment.countryTV.setText(newCountry);
-                    document.update("country", newCountry);
-                    editor.putString(StaticClass.COUNTRY, newCountry);
+                    ProfileFragment.citiesLL.setVisibility(View.GONE);
+                    ProfileFragment.citiesListShown = false;
+                    String newCity = citiesList.get(position);
+                    ProfileFragment.cityTV.setText(newCity);
+                    document.update("city", newCity);
+                    editor.putString(StaticClass.CITY, newCity);
                     editor.apply();
                     Toast.makeText(context,
-                            "Country updated",
+                            "City updated",
                             Toast.LENGTH_SHORT).show();
                 }
-            });*/
+            });
         }else if(initializedIn.equals(StaticClass.SET_PROFILE_ACTIVITY)){
             holder.parentLayout.setOnClickListener(new View.OnClickListener() {
                 @Override

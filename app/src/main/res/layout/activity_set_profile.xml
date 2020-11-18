@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SetProfileActivity"
+    tools:context=".activity.entry.SetProfileActivity"
     android:background="@drawable/white_background_rounded_border">
 
     <androidx.constraintlayout.widget.ConstraintLayout

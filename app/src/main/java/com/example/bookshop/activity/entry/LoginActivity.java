@@ -1,4 +1,4 @@
-package com.example.bookshop.activity;
+package com.example.bookshop.activity.entry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
+import com.example.bookshop.activity.TermsActivity;
+import com.example.bookshop.activity.core.CoreActivity;
 import com.example.bookshop.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;

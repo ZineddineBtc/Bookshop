@@ -1,4 +1,4 @@
-package com.example.bookshop.activity;
+package com.example.bookshop.activity.entry;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +30,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.bookshop.activity.TermsActivity;
+import com.example.bookshop.activity.core.CoreActivity;
 import com.example.bookshop.adapter.CitiesAdapter;
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
@@ -45,7 +47,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 
@@ -251,7 +252,6 @@ public class SetProfileActivity extends AppCompatActivity {
         editor.putString(StaticClass.EMAIL, email);
         editor.putString(StaticClass.NAME, name);
         editor.putString(StaticClass.CITY, city);
-        editor.putStringSet(StaticClass.GALLERY, new HashSet<>(new ArrayList<String>()));
         editor.apply();
         writeOnlineDatabase();
     }
