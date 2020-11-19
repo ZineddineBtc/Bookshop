@@ -1,6 +1,7 @@
 package com.example.bookshop.adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -15,33 +16,35 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
+import com.example.bookshop.activity.core.fragment.ProfileFragment;
 import com.example.bookshop.model.Book;
 import com.example.bookshop.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.ViewHolder> {
+public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder> {
 
     private List<Book> booksList;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
     private Context context;
     private Bitmap profilePhotoBitmap;
-    private User user;
     private FirebaseStorage storage;
+    private String name, phone, city;
 
-    public ProfileBookAdapter(Context context, List<Book> data,
-                              Bitmap profilePhotoBitmap, User user) {
+    public MyBookAdapter(Context context, List<Book> data) {
         this.mInflater = LayoutInflater.from(context);
         this.booksList = data;
         this.context = context;
-        this.profilePhotoBitmap = profilePhotoBitmap;
-        this.user = user;
+        this.profilePhotoBitmap = ProfileFragment.profilePhotoBitmap;
         this.storage = FirebaseStorage.getInstance();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(StaticClass.SHARED_PREFERENCES, Context.MODE_PRIVATE);
+        name = sharedPreferences.getString(StaticClass.NAME, "no name");
+        phone = sharedPreferences.getString(StaticClass.PHONE, "no phone");
+        city = sharedPreferences.getString(StaticClass.CITY, "no city");
     }
 
     @Override
@@ -84,7 +87,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView photoIV, bookIV;
-        private TextView nameTV, cityTV, titleTV, descriptionTV;
+        private TextView nameTV, phoneTV, cityTV, titleTV, descriptionTV;
         private View itemView;
 
         ViewHolder(final View itemView) {
@@ -97,6 +100,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
         private void findViewsByIds(){
             photoIV = itemView.findViewById(R.id.photoIV);
             nameTV = itemView.findViewById(R.id.nameTV);
+            phoneTV = itemView.findViewById(R.id.phoneTV);
             cityTV = itemView.findViewById(R.id.cityTV);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
@@ -104,10 +108,10 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
         }
         private void setStaticViews(){
             photoIV.setImageBitmap(profilePhotoBitmap);
-            nameTV.setText(user.getName());
-            cityTV.setText(user.getCity());
+            nameTV.setText(name);
+            phoneTV.setText(phone);
+            cityTV.setText(city);
         }
-
         @Override
         public void onClick(View view) {
             if (mClickListener != null)

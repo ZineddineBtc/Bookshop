@@ -138,4 +138,5 @@ public class LoginActivity extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), SliderActivity.class));
     }
+
 }

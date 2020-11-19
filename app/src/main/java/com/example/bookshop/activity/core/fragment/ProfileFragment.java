@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
+import com.example.bookshop.activity.core.MyBooksActivity;
 import com.example.bookshop.activity.entry.LoginActivity;
 import com.example.bookshop.adapter.CitiesAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -60,6 +61,7 @@ public class ProfileFragment extends Fragment {
 
     private View fragmentView;
     private Context context;
+    private LinearLayout booksLL;
     private ImageView photoIV, editNameIV, editPhoneIV;
     private TextView nameTV, phoneTV, emailTV, signOutTV, errorTV;
     private EditText nameET, phoneET;
@@ -77,6 +79,7 @@ public class ProfileFragment extends Fragment {
     public static LinearLayout shadeLL, citiesLL;
     public static boolean citiesListShown;
     public static TextView cityTV;
+    public static Bitmap profilePhotoBitmap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -97,6 +100,7 @@ public class ProfileFragment extends Fragment {
         editor = sharedPreferences.edit();
     }
     private void findViewsByIds(){
+        booksLL = fragmentView.findViewById(R.id.booksLL);
         photoIV = fragmentView.findViewById(R.id.photoIV);
         nameTV = fragmentView.findViewById(R.id.nameTV);
         nameET = fragmentView.findViewById(R.id.nameET);
@@ -126,6 +130,12 @@ public class ProfileFragment extends Fragment {
         setListeners();
     }
     private void setListeners(){
+        booksLL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(context, MyBooksActivity.class));
+            }
+        });
         photoIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -173,8 +183,8 @@ public class ProfileFragment extends Fragment {
         });
     }
     private void setBytesToPhoto(byte[] bytes){
-        Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-        photoIV.setImageBitmap(Bitmap.createScaledBitmap(bmp, photoIV.getWidth(),
+        profilePhotoBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+        photoIV.setImageBitmap(Bitmap.createScaledBitmap(profilePhotoBitmap, photoIV.getWidth(),
                 photoIV.getHeight(), false));
     }
     private void importImage(){
