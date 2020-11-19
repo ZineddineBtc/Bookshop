@@ -11,7 +11,7 @@ public class StaticClass {
     public static int PICK_SINGLE_IMAGE = 1;
     public static String SHARED_PREFERENCES = "shared_preferences";
     public static String PHOTO_SIGNATURE = "photo";
-    public static String USERNAME = "username";
+    public static String PHONE = "phone";
     public static String NAME = "name";
     public static String EMAIL = "email";
     public static String CITY = "city";

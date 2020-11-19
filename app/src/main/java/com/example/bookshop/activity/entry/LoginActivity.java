@@ -83,6 +83,7 @@ public class LoginActivity extends AppCompatActivity {
         editor.putString(StaticClass.EMAIL, user.getId());
         editor.putString(StaticClass.NAME, user.getName());
         editor.putString(StaticClass.CITY, user.getCity());
+        editor.putString(StaticClass.PHONE, user.getPhone());
         editor.apply();
         progressDialog.dismiss();
         startActivity(new Intent(
@@ -93,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
         user.setId(document.getId());
         user.setName(String.valueOf(document.get("name")));
         user.setCity(String.valueOf(document.get("city")));
+        user.setPhone(String.valueOf(document.get("phone")));
         setSharedPreferences(user);
     }
     public void getDataByDocument(){

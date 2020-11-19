@@ -54,7 +54,7 @@ public class SetProfileActivity extends AppCompatActivity {
 
     private ImageView photoIV;
     private TextView errorTV;
-    private EditText nameET;
+    private EditText nameET, phoneET;
     private RecyclerView citiesRV;
     private CitiesAdapter citiesAdapter;
     private ProgressDialog progressDialog;
@@ -62,7 +62,7 @@ public class SetProfileActivity extends AppCompatActivity {
     private FirebaseStorage storage;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private String name, email, city;
+    private String name, email, city, phone;
     private boolean imagePicked;
     public static LinearLayout shadeLL, citiesLL;
     public static SearchView searchCitySV;
@@ -121,6 +121,7 @@ public class SetProfileActivity extends AppCompatActivity {
         errorTV = findViewById(R.id.errorTV);
         photoIV = findViewById(R.id.photoIV);
         nameET = findViewById(R.id.nameET);
+        phoneET = findViewById(R.id.phoneET);
         cityTV = findViewById(R.id.cityTV);
         cityTV.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,9 +152,9 @@ public class SetProfileActivity extends AppCompatActivity {
             }
         });
         citiesRV = findViewById(R.id.citiesRV);
-        setCountriesRV();
+        setCitiesRV();
     }
-    private void setCountriesRV(){
+    private void setCitiesRV(){
         citiesAdapter = new CitiesAdapter(getApplicationContext(),
                 new ArrayList<>(Arrays.asList(StaticClass.countries)), "",
                 database.collection("users").document(email), editor,
@@ -210,6 +211,11 @@ public class SetProfileActivity extends AppCompatActivity {
             displayErrorTV(R.string.invalid_name);
             return;
         }
+        phone = phoneET.getText().toString().trim();
+        if(phone.length()<8){
+            displayErrorTV(R.string.invalid_phone);
+            return;
+        }
         city = cityTV.getText().toString().trim();
         if(!cityPicked){
             displayErrorTV(R.string.unspecified_city);
@@ -252,6 +258,7 @@ public class SetProfileActivity extends AppCompatActivity {
         editor.putString(StaticClass.EMAIL, email);
         editor.putString(StaticClass.NAME, name);
         editor.putString(StaticClass.CITY, city);
+        editor.putString(StaticClass.PHONE, phone);
         editor.apply();
         writeOnlineDatabase();
     }
@@ -259,7 +266,7 @@ public class SetProfileActivity extends AppCompatActivity {
         Map<String, Object> userReference = new HashMap<>();
         userReference.put("name", name);
         userReference.put("city", city);
-        userReference.put("posts", new ArrayList<String>());
+        userReference.put("phone", phone);
         database.collection("users")
                 .document(email)
                 .set(userReference)

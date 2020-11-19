@@ -1,7 +1,15 @@
 package com.example.bookshop.model;
 
 public class User {
-    private String id, name, city;
+    private String id, name, city, phone;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getId() {
         return id;

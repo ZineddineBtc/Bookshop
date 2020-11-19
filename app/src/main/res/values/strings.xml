@@ -40,4 +40,8 @@
     <string name="unspecified_image">Unspecified image</string>
     <string name="unspecified_title">Unspecified title</string>
     <string name="unspecified_description">Unspecified desccription</string>
+    <string name="number">0123456789</string>
+    <string name="no_books_posted_yet_by_this_user">No books posted yet by this user</string>
+    <string name="phone">Phone</string>
+    <string name="invalid_phone">Invalid phone</string>
 </resources>
