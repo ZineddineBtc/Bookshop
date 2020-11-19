@@ -2,7 +2,16 @@ package com.example.bookshop.model;
 
 public class Book {
     private String id, title, description;
+    private long time;
     private User user;
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
 
     public String getId() {
         return id;

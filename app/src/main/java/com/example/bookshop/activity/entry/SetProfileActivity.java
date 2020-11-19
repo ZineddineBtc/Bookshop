@@ -103,7 +103,8 @@ public class SetProfileActivity extends AppCompatActivity {
                 new String[]{
                         Manifest.permission.READ_EXTERNAL_STORAGE,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                        Manifest.permission.INTERNET},
+                        Manifest.permission.INTERNET,
+                        Manifest.permission.CALL_PHONE},
                 101);
     }
     @Override

@@ -15,8 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
 import com.example.bookshop.activity.core.AddBookActivity;
-import com.example.bookshop.activity.core.CoreActivity;
-import com.example.bookshop.adapter.BookAdapter;
+import com.example.bookshop.adapter.ProfileBookAdapter;
 import com.example.bookshop.model.Book;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -32,7 +31,7 @@ public class SearchFragment extends Fragment {
     private EditText searchET;
     private TextView noResultsTV;
     private RecyclerView booksRV;
-    private BookAdapter adapter;
+    private ProfileBookAdapter adapter;
     private ArrayList<Book> booksList = new ArrayList<>();
 
     @Override

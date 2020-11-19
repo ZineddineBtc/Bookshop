@@ -3,6 +3,12 @@ package com.example.bookshop.model;
 public class User {
     private String id, name, city, phone;
 
+    public User(String name, String phone, String city) {
+        this.name = name;
+        this.phone = phone;
+        this.city = city;
+    }
+
     public String getPhone() {
         return phone;
     }
