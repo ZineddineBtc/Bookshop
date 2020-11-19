@@ -60,9 +60,9 @@ public class ProfileFragment extends Fragment {
 
     private View fragmentView;
     private Context context;
-    private ImageView photoIV, editNameIV;
-    private TextView nameTV, emailTV, signOutTV, errorTV;
-    private EditText nameET;
+    private ImageView photoIV, editNameIV, editPhoneIV;
+    private TextView nameTV, phoneTV, emailTV, signOutTV, errorTV;
+    private EditText nameET, phoneET;
     private SearchView searchCitySV;
     private RecyclerView citiesRV;
     private CitiesAdapter citiesAdapter;
@@ -70,8 +70,8 @@ public class ProfileFragment extends Fragment {
     private FirebaseStorage storage;
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
-    private String name, city, email;
-    private boolean nameETShown, isCitiesRVSet;
+    private String name, phone, city, email;
+    private boolean nameETShown, phoneETShown, isCitiesRVSet;
     private byte[] profilePhotoData;
     @SuppressLint("StaticFieldLeak")
     public static LinearLayout shadeLL, citiesLL;
@@ -100,7 +100,10 @@ public class ProfileFragment extends Fragment {
         photoIV = fragmentView.findViewById(R.id.photoIV);
         nameTV = fragmentView.findViewById(R.id.nameTV);
         nameET = fragmentView.findViewById(R.id.nameET);
+        phoneTV = fragmentView.findViewById(R.id.phoneTV);
+        phoneET = fragmentView.findViewById(R.id.phoneET);
         editNameIV = fragmentView.findViewById(R.id.editNameIV);
+        editPhoneIV = fragmentView.findViewById(R.id.editPhoneIV);
         cityTV = fragmentView.findViewById(R.id.cityLL);
         emailTV = fragmentView.findViewById(R.id.emailTV);
         signOutTV = fragmentView.findViewById(R.id.signOutTV);
@@ -114,6 +117,9 @@ public class ProfileFragment extends Fragment {
         name = sharedPreferences.getString(StaticClass.NAME, "no name");
         nameTV.setText(name);
         nameET.setText(name);
+        phone = sharedPreferences.getString(StaticClass.PHONE, "no phone");
+        phoneTV.setText(phone);
+        phoneET.setText(phone);
         city = sharedPreferences.getString(StaticClass.CITY, "no city");
         cityTV.setText(city);
         emailTV.setText(email);
@@ -130,6 +136,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editName();
+            }
+        });
+        editPhoneIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPhone();
             }
         });
         cityTV.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +252,10 @@ public class ProfileFragment extends Fragment {
         });
     }
     private void editName(){
+        if(phoneETShown){
+            Toast.makeText(context, "Pending edit", Toast.LENGTH_LONG).show();
+            return;
+        }
         if(nameETShown){
             String newName = nameET.getText().toString();
             if(!StaticClass.containsDigit(newName) && newName.length()>2){
@@ -292,8 +308,65 @@ public class ProfileFragment extends Fragment {
                     }
                 });
     }
-    private void editCity(){
+    private void editPhone(){
         if(nameETShown){
+            Toast.makeText(context, "Pending edit", Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(phoneETShown){
+            String newPhone = phoneET.getText().toString();
+            if(newPhone.length()>8){
+                if(!phone.equals(newPhone)){
+                    writePhone(newPhone);
+                }
+            }else{
+                displayErrorTV(R.string.invalid_phone);
+            }
+        }else{
+            togglePhone();
+        }
+    }
+    private void togglePhone(){
+        phoneET.setVisibility(!phoneETShown ? View.VISIBLE : View.GONE);
+        phoneTV.setVisibility(phoneETShown ? View.VISIBLE : View.GONE);
+        editPhoneIV.setImageDrawable(phoneETShown ?
+                context.getDrawable(R.drawable.ic_edit) :
+                context.getDrawable(R.drawable.ic_check));
+        if(!phoneETShown){
+            phoneET.requestFocus();
+        }
+        phoneETShown = !phoneETShown;
+    }
+    private void writePhone(final String phone){
+        Map<String, Object> userReference = new HashMap<>();
+        userReference.put("phone", phone);
+        database.collection("users")
+                .document(email)
+                .update(userReference)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        hideKeyboard();
+                        editor.putString(StaticClass.PHONE, phone);
+                        editor.apply();
+                        togglePhone();
+                        setUserData();
+                        Snackbar.make(fragmentView.findViewById(R.id.parentLayout),
+                                "Phone updated", 1000)
+                                .setAction("Action", null).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(fragmentView.getContext(),
+                                "Error writing phone",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    private void editCity(){
+        if(nameETShown || phoneETShown){
             Toast.makeText(context, "Pending edit", Toast.LENGTH_LONG).show();
             return;
         }

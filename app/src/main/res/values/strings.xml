@@ -44,4 +44,5 @@
     <string name="no_books_posted_yet_by_this_user">No books posted yet by this user</string>
     <string name="phone">Phone</string>
     <string name="invalid_phone">Invalid phone</string>
+    <string name="pending_edit">Pending edit</string>
 </resources>
