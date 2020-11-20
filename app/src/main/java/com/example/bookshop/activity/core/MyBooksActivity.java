@@ -58,7 +58,7 @@ public class MyBooksActivity extends AppCompatActivity {
         booksRV = findViewById(R.id.booksRV);
     }
     private void setBooksRV(){
-        adapter = new MyBookAdapter(getApplicationContext(), booksList);
+        adapter = new MyBookAdapter(MyBooksActivity.this, booksList);
         LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false);
         llm.setStackFromEnd(true);

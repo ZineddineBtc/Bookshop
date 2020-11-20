@@ -33,6 +33,10 @@ public class CoreActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        if(Objects.equals(getIntent().getStringExtra(StaticClass.TO),
+                StaticClass.PROFILE_FRAGMENT)){
+            navView.setSelectedItemId(R.id.navigation_profile);
+        }
     }
     @Override
     public void onBackPressed() {

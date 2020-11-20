@@ -50,4 +50,6 @@
     <string name="no_books_offered_yet">No books offered yet</string>
     <string name="price">Price</string>
     <string name="unspecified_price">Unspecified price</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
 </resources>

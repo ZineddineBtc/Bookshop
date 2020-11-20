@@ -16,6 +16,7 @@ public class StaticClass {
     public static String EMAIL = "email";
     public static String CITY = "city";
     public static String PROFILE_ID = "profile";
+    public static String BOOK_ID = "book";
     public static String TO = "to";
     public static String FROM = "from";
     public static String PROFILE_FRAGMENT = "profile_fragment";

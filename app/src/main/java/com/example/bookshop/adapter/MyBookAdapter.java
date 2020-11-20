@@ -1,26 +1,33 @@
 package com.example.bookshop.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
+import com.example.bookshop.activity.core.EditBookActivity;
 import com.example.bookshop.activity.core.fragment.ProfileFragment;
 import com.example.bookshop.model.Book;
 import com.example.bookshop.model.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.List;
@@ -32,6 +39,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
     private ItemClickListener mClickListener;
     private Context context;
     private Bitmap profilePhotoBitmap;
+    private FirebaseFirestore database;
     private FirebaseStorage storage;
     private String name, phone, city;
 
@@ -41,24 +49,44 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
         this.context = context;
         this.profilePhotoBitmap = ProfileFragment.profilePhotoBitmap;
         this.storage = FirebaseStorage.getInstance();
+        this.database = FirebaseFirestore.getInstance();
         SharedPreferences sharedPreferences = context.getSharedPreferences(StaticClass.SHARED_PREFERENCES, Context.MODE_PRIVATE);
-        name = sharedPreferences.getString(StaticClass.NAME, "no name");
-        phone = sharedPreferences.getString(StaticClass.PHONE, "no phone");
-        city = sharedPreferences.getString(StaticClass.CITY, "no city");
+        this.name = sharedPreferences.getString(StaticClass.NAME, "no name");
+        this.phone = sharedPreferences.getString(StaticClass.PHONE, "no phone");
+        this.city = sharedPreferences.getString(StaticClass.CITY, "no city");
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.profile_book_row, parent, false);
+        View view = mInflater.inflate(R.layout.my_book_row, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-        Book book = booksList.get(position);
+        final Book book = booksList.get(position);
         getBookPhoto(holder, book);
+        holder.priceTV.setText(book.getPrice());
         holder.titleTV.setText(book.getTitle());
         holder.descriptionTV.setText(book.getDescription());
+        holder.toggleIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggle(holder);
+            }
+        });
+        holder.editTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                context.startActivity(new Intent(context, EditBookActivity.class)
+                .putExtra(StaticClass.BOOK_ID, book.getId()));
+            }
+        });
+        holder.deleteTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { delete(book.getId(), position);
+            }
+        });
     }
     private void getBookPhoto(final ViewHolder holder, Book book){
         final long ONE_MEGABYTE = 1024 * 1024 * 20;
@@ -77,6 +105,37 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
             }
         });
     }
+    private void toggle(ViewHolder holder){
+        if(holder.toggledLL.getVisibility()==View.GONE){
+            holder.toggleIV.setImageResource(R.drawable.ic_keyboard_arrow_right_dark_grey);
+            holder.toggledLL.setVisibility(View.VISIBLE);
+        }else{
+            holder.toggledLL.setVisibility(View.GONE);
+            holder.toggleIV.setImageResource(R.drawable.ic_keyboard_arrow_left_dark_grey);
+        }
+    }
+    private void delete(final String bookID, final int index){
+        new AlertDialog.Builder(context)
+                .setTitle("Delete offer")
+                .setMessage("Are you sure you want to delete this offer?")
+                .setPositiveButton(
+                        Html.fromHtml("<font color=\"#AA0000\"> Delete </font>")
+                        , new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                database.collection("books")
+                                        .document(bookID)
+                                        .delete();
+                                storage.getReference(bookID)
+                                        .delete();
+                                booksList.remove(index);
+                                notifyDataSetChanged();
+                            }
+                        })
+                .setNegativeButton(
+                        Html.fromHtml("<font color=\"#1976D2\"> Cancel </font>"),
+                        null)
+                .show();
+    }
 
     @Override
     public int getItemCount() {
@@ -86,8 +145,10 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private ImageView photoIV, bookIV;
-        private TextView nameTV, phoneTV, cityTV, titleTV, descriptionTV;
+        private ImageView photoIV, bookIV, toggleIV;
+        private TextView nameTV, phoneTV, cityTV, priceTV, titleTV, descriptionTV,
+                            editTV, deleteTV;
+        private LinearLayout toggledLL;
         private View itemView;
 
         ViewHolder(final View itemView) {
@@ -102,6 +163,11 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
             nameTV = itemView.findViewById(R.id.nameTV);
             phoneTV = itemView.findViewById(R.id.phoneTV);
             cityTV = itemView.findViewById(R.id.cityTV);
+            editTV = itemView.findViewById(R.id.editTV);
+            deleteTV = itemView.findViewById(R.id.deleteTV);
+            toggledLL = itemView.findViewById(R.id.toggledLL);
+            toggleIV = itemView.findViewById(R.id.toggleIV);
+            priceTV = itemView.findViewById(R.id.priceTV);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             bookIV = itemView.findViewById(R.id.bookIV);

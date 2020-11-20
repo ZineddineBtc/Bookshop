@@ -137,6 +137,7 @@ public class AddBookActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "IO Exception when selecting a profile image",
                             Toast.LENGTH_LONG).show();
                 }
+                bookIV.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 bookIV.setImageBitmap(imageBitmap);
                 imagePicked = true;
             }
