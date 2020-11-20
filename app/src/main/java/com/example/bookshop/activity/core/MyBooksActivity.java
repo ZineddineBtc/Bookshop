@@ -88,6 +88,7 @@ public class MyBooksActivity extends AppCompatActivity {
     private void addBookToList(DocumentSnapshot document){
         Book book = new Book();
         book.setId(document.getId());
+        book.setPrice(String.valueOf(document.get("price")));
         book.setTitle(String.valueOf(document.get("title")));
         book.setDescription(String.valueOf(document.get("description")));
         book.setTime((Long) document.get("time"));

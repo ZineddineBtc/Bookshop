@@ -39,14 +39,13 @@ import java.util.HashMap;
 public class AddBookActivity extends AppCompatActivity {
 
     private ImageView photoIV, bookIV;
-    private TextView nameTV, cityTV, errorTV;
-    private EditText titleET, descriptionET;
+    private TextView nameTV, phoneTV, cityTV, errorTV;
+    private EditText titleET, descriptionET, priceET;
     private FirebaseFirestore database;
     private FirebaseStorage storage;
     private SharedPreferences sharedPreferences;
-    private String email, title, description;
+    private String email, price, title, description;
     private boolean imagePicked;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +71,9 @@ public class AddBookActivity extends AppCompatActivity {
             }
         });
         nameTV = findViewById(R.id.nameTV);
+        phoneTV = findViewById(R.id.phoneTV);
         cityTV = findViewById(R.id.cityTV);
+        priceET = findViewById(R.id.priceET);
         titleET = findViewById(R.id.titleET);
         descriptionET = findViewById(R.id.descriptionET);
         errorTV = findViewById(R.id.errorTV);
@@ -80,6 +81,7 @@ public class AddBookActivity extends AppCompatActivity {
     private void getUserData(){
         getPhoto();
         nameTV.setText(sharedPreferences.getString(StaticClass.NAME, "no name"));
+        phoneTV.setText(sharedPreferences.getString(StaticClass.PHONE, "no phone"));
         cityTV.setText(sharedPreferences.getString(StaticClass.CITY, "no city"));
     }
     private void getPhoto(){
@@ -167,6 +169,11 @@ public class AddBookActivity extends AppCompatActivity {
             displayErrorTV(R.string.unspecified_image);
             return false;
         }
+        price = priceET.getText().toString();
+        if(price.isEmpty()){
+            displayErrorTV(R.string.unspecified_price);
+            return false;
+        }
         title = titleET.getText().toString();
         if(title.isEmpty()){
             displayErrorTV(R.string.unspecified_title);
@@ -182,6 +189,7 @@ public class AddBookActivity extends AppCompatActivity {
     private HashMap<String, Object> bookMap(){
         HashMap<String, Object> map = new HashMap<>();
         map.put("user", email);
+        map.put("price", price);
         map.put("title", title);
         map.put("description", description);
         map.put("time", System.currentTimeMillis());

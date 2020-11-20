@@ -54,6 +54,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Book book = booksList.get(position);
         getBookPhoto(holder, book);
+        holder.phoneTV.setText(book.getPrice());
         holder.titleTV.setText(book.getTitle());
         holder.descriptionTV.setText(book.getDescription());
     }
@@ -84,7 +85,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView photoIV, bookIV;
-        private TextView nameTV, cityTV, titleTV, descriptionTV;
+        private TextView nameTV, phoneTV, cityTV, priceTV, titleTV, descriptionTV;
         private View itemView;
 
         ViewHolder(final View itemView) {
@@ -97,7 +98,9 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
         private void findViewsByIds(){
             photoIV = itemView.findViewById(R.id.photoIV);
             nameTV = itemView.findViewById(R.id.nameTV);
+            phoneTV = itemView.findViewById(R.id.phoneTV);
             cityTV = itemView.findViewById(R.id.cityTV);
+            priceTV = itemView.findViewById(R.id.priceTV);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             bookIV = itemView.findViewById(R.id.bookIV);
@@ -105,6 +108,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
         private void setStaticViews(){
             photoIV.setImageBitmap(profilePhotoBitmap);
             nameTV.setText(user.getName());
+            phoneTV.setText(user.getPhone());
             cityTV.setText(user.getCity());
         }
 

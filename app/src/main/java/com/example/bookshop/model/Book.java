@@ -1,9 +1,17 @@
 package com.example.bookshop.model;
 
 public class Book {
-    private String id, title, description;
+    private String id, title, description, price;
     private long time;
     private User user;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
 
     public long getTime() {
         return time;

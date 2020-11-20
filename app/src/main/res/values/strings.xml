@@ -48,4 +48,6 @@
     <string name="my_books">My books</string>
     <string name="my_books_to_offer">My books to offer</string>
     <string name="no_books_offered_yet">No books offered yet</string>
+    <string name="price">Price</string>
+    <string name="unspecified_price">Unspecified price</string>
 </resources>
