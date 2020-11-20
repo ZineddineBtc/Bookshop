@@ -21,7 +21,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.ViewHolder> {
@@ -54,7 +56,8 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Book book = booksList.get(position);
         getBookPhoto(holder, book);
-        holder.phoneTV.setText(book.getPrice());
+        holder.priceTV.setText(book.getPrice());
+        holder.timeTV.setText(castTime(book.getTime()));
         holder.titleTV.setText(book.getTitle());
         holder.descriptionTV.setText(book.getDescription());
     }
@@ -75,6 +78,9 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
             }
         });
     }
+    private String castTime(long time){
+        return new SimpleDateFormat("dd MMM. yyyy HH:mm").format(new Date(time));
+    }
 
     @Override
     public int getItemCount() {
@@ -85,7 +91,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView photoIV, bookIV;
-        private TextView nameTV, phoneTV, cityTV, priceTV, titleTV, descriptionTV;
+        private TextView nameTV, phoneTV, cityTV, priceTV, timeTV, titleTV, descriptionTV;
         private View itemView;
 
         ViewHolder(final View itemView) {
@@ -101,6 +107,7 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
             phoneTV = itemView.findViewById(R.id.phoneTV);
             cityTV = itemView.findViewById(R.id.cityTV);
             priceTV = itemView.findViewById(R.id.priceTV);
+            timeTV = itemView.findViewById(R.id.timeTV);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             bookIV = itemView.findViewById(R.id.bookIV);

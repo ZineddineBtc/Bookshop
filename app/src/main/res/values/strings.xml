@@ -52,4 +52,5 @@
     <string name="unspecified_price">Unspecified price</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="time">Time</string>
 </resources>

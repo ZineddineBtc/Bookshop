@@ -1,5 +1,6 @@
 package com.example.bookshop.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -30,6 +31,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder> {
@@ -67,6 +70,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
         final Book book = booksList.get(position);
         getBookPhoto(holder, book);
         holder.priceTV.setText(book.getPrice());
+        holder.timeTV.setText(castTime(book.getTime()));
         holder.titleTV.setText(book.getTitle());
         holder.descriptionTV.setText(book.getDescription());
         holder.toggleIV.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +140,10 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
                         null)
                 .show();
     }
+    @SuppressLint("SimpleDateFormat")
+    private String castTime(long time){
+        return new SimpleDateFormat("dd MMM. yyyy HH:mm").format(new Date(time));
+    }
 
     @Override
     public int getItemCount() {
@@ -146,8 +154,8 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private ImageView photoIV, bookIV, toggleIV;
-        private TextView nameTV, phoneTV, cityTV, priceTV, titleTV, descriptionTV,
-                            editTV, deleteTV;
+        private TextView nameTV, phoneTV, cityTV, priceTV, timeTV,
+                         titleTV, descriptionTV, editTV, deleteTV;
         private LinearLayout toggledLL;
         private View itemView;
 
@@ -168,6 +176,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.ViewHolder
             toggledLL = itemView.findViewById(R.id.toggledLL);
             toggleIV = itemView.findViewById(R.id.toggleIV);
             priceTV = itemView.findViewById(R.id.priceTV);
+            timeTV = itemView.findViewById(R.id.timeTV);
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             bookIV = itemView.findViewById(R.id.bookIV);
