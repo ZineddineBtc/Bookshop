@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.bookshop.R;
+import com.example.bookshop.StaticClass;
 import com.example.bookshop.activity.core.AddBookActivity;
 import com.example.bookshop.adapter.ProfileBookAdapter;
 import com.example.bookshop.adapter.SearchBookAdapter;
@@ -52,6 +53,7 @@ public class SearchFragment extends Fragment {
     private SearchUserAdapter searchUserAdapter;
     private ArrayList<User> usersList = new ArrayList<>();
     private FirebaseFirestore database;
+    private String email;
     private boolean booksUsers = false; // false=>books | true=>users
 
     @Override
@@ -66,6 +68,7 @@ public class SearchFragment extends Fragment {
         return fragmentView;
     }
     private void getInstances(){
+        email = context.getSharedPreferences(StaticClass.SHARED_PREFERENCES, Context.MODE_PRIVATE).getString(StaticClass.EMAIL, "no email");
         database = FirebaseFirestore.getInstance();
     }
     private void findViewsByIds(){
@@ -110,8 +113,6 @@ public class SearchFragment extends Fragment {
         });
     }
     private void toggleSearchTab(boolean tab){
-        booksList.clear();
-        usersList.clear();
         booksUsers = tab;
         booksTV.setBackground(!tab ?
                   context.getDrawable(R.drawable.special_background_left_tab_active) :
@@ -127,6 +128,10 @@ public class SearchFragment extends Fragment {
                 context.getColor(R.color.special));
         booksRV.setVisibility(!tab ? View.VISIBLE : View.GONE);
         usersRV.setVisibility(tab ? View.VISIBLE : View.GONE);
+        booksList.clear();
+        usersList.clear();
+        if(tab) searchUser(searchET.getText().toString());
+        else    searchBook(searchET.getText().toString());
     }
     private void setRecyclerViews(){
         searchBookAdapter = new SearchBookAdapter(context, booksList);
@@ -222,6 +227,7 @@ public class SearchFragment extends Fragment {
                 });
     }
     private void getUserFromDocument(DocumentSnapshot document){
+        if(document.getId().equals(email)) return;
         User user = new User();
         user.setId(document.getId());
         user.setName(String.valueOf(document.get("name")));
@@ -229,6 +235,5 @@ public class SearchFragment extends Fragment {
         user.setPhone(String.valueOf(document.get("phone")));
         usersList.add(user);
         searchUserAdapter.notifyDataSetChanged();
-
     }
 }
