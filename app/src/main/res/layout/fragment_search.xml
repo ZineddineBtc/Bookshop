@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
@@ -18,6 +18,33 @@
         android:paddingEnd="10dp"
         android:background="@drawable/special_background_rounded_border_20dp_2dp"
         android:hint="@string/search_hint"/>
+
+    <LinearLayout
+        android:id="@+id/tabLL"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/searchET">
+        <TextView
+            android:id="@+id/booksTV"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:text="@string/books"
+            android:background="@drawable/special_background_left_tab_active"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:gravity="center"/>
+        <TextView
+            android:id="@+id/usersTV"
+            android:layout_width="70dp"
+            android:layout_height="50dp"
+            android:text="@string/users"
+            android:background="@drawable/special_background_right_tab_nonactive"
+            android:textColor="@color/special"
+            android:textSize="15sp"
+            android:gravity="center"/>
+    </LinearLayout>
 
     <TextView
         android:visibility="gone"
@@ -27,13 +54,21 @@
         android:text="@string/no_results"
         android:layout_margin="10dp"
         android:gravity="center"
-        android:layout_below="@id/searchET"/>
+        android:layout_below="@id/tabLL"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/booksRV"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/searchET"/>
+        android:layout_below="@id/tabLL"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/usersRV"
+        android:visibility="gone"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/tabLL"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addBookFAB"

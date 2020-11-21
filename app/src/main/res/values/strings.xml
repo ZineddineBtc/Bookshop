@@ -53,4 +53,6 @@
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="time">Time</string>
+    <string name="books">Books</string>
+    <string name="users">Users</string>
 </resources>

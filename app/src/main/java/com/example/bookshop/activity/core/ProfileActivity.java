@@ -130,10 +130,8 @@ public class ProfileActivity extends AppCompatActivity {
         adapter = new ProfileBookAdapter(getApplicationContext(), booksList,
                 profilePhotoBitmap,
                 new User(name, phone, city));
-        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL, false);
-        llm.setStackFromEnd(true);
-        booksRV.setLayoutManager(llm);
+        booksRV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.VERTICAL, false));
         booksRV.setAdapter(adapter);
     }
     private void getBooks(){
