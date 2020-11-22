@@ -16,44 +16,69 @@
         android:src="@drawable/ic_account_circle_grey"
         app:civ_border_color="#ffffff"
         app:civ_border_width="2dp"/>
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:layout_marginBottom="5dp">
-        <TextView
-            android:id="@+id/nameTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name"
-            android:textSize="16sp"
-            android:textColor="@color/black"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"/>
-        <TextView
-            android:id="@+id/cityTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/city"
-            android:textSize="12sp"
-            android:layout_gravity="center"/>
-    </LinearLayout>
     <TextView
-        android:id="@+id/phoneTV"
+        android:id="@+id/nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/number"
-        android:textSize="14sp"
+        android:text="@string/name"
+        android:textSize="16sp"
+        android:textColor="@color/black"
         android:layout_gravity="center"
         android:layout_marginBottom="5dp"/>
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:paddingEnd="10dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_location_special"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/cityTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/city"
+                android:textSize="12sp"
+                android:layout_gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.5"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_phone"
+                android:layout_marginEnd="5dp"/>
+            <TextView
+                android:id="@+id/phoneTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/number"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="1dp"
         android:orientation="vertical"
-        android:background="@drawable/white_background_border"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginTop="5dp"
+        android:background="@drawable/white_background_border" />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/booksRV"
         android:layout_width="match_parent"

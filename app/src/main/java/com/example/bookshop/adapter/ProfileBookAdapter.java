@@ -54,6 +54,10 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         Book book = booksList.get(position);
         getBookPhoto(holder, book);
+        holder.photoIV.setImageBitmap(profilePhotoBitmap);
+        holder.nameTV.setText(user.getName());
+        holder.phoneTV.setText(user.getPhone());
+        holder.cityTV.setText(user.getCity());
         holder.priceTV.setText(book.getPrice());
         holder.timeTV.setText(castTime(book.getTime()));
         holder.titleTV.setText(book.getTitle());
@@ -96,7 +100,6 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
             super(itemView);
             this.itemView = itemView;
             findViewsByIds();
-            setStaticViews();
             itemView.setOnClickListener(this);
         }
         private void findViewsByIds(){
@@ -109,12 +112,6 @@ public class ProfileBookAdapter extends RecyclerView.Adapter<ProfileBookAdapter.
             titleTV = itemView.findViewById(R.id.titleTV);
             descriptionTV = itemView.findViewById(R.id.descriptionTV);
             bookIV = itemView.findViewById(R.id.bookIV);
-        }
-        private void setStaticViews(){
-            photoIV.setImageBitmap(profilePhotoBitmap);
-            nameTV.setText(user.getName());
-            phoneTV.setText(user.getPhone());
-            cityTV.setText(user.getCity());
         }
 
         @Override

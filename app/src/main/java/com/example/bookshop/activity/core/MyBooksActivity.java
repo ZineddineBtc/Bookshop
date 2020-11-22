@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -73,8 +74,12 @@ public class MyBooksActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(DocumentSnapshot document: queryDocumentSnapshots.getDocuments()){
-                            addBookToList(document);
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                addBookToList(document);
+                            }
+                        }else{
+                            noBooksTV.setVisibility(View.VISIBLE);
                         }
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -108,8 +113,8 @@ public class MyBooksActivity extends AppCompatActivity {
         .putExtra(StaticClass.TO, StaticClass.PROFILE_FRAGMENT));
     }
     @Override
-    public boolean onNavigateUp() {
+    public boolean onSupportNavigateUp() {
         onBackPressed();
-        return false;
+        return true;
     }
 }

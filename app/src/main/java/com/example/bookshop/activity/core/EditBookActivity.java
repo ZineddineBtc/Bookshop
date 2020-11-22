@@ -1,11 +1,13 @@
 package com.example.bookshop.activity.core;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -36,6 +39,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class EditBookActivity extends AppCompatActivity {
     private ImageView photoIV, bookIV;
@@ -53,6 +57,7 @@ public class EditBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_book);
+        setActionBarTitle("Edit Post");
         getInstances();
         findViewsByIds();
         getBookPhoto();
@@ -267,5 +272,34 @@ public class EditBookActivity extends AppCompatActivity {
                 errorTV.setVisibility(View.GONE);
             }
         }, 1500);
+    }
+    public void setActionBarTitle(String title){
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(
+                Html.fromHtml("<font color=\"#ffffff\"> "+title+" </font>")
+        );
+    }
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(EditBookActivity.this)
+                .setTitle("Discard the Edit")
+                .setMessage("Are you sure you want to discard this edit?")
+                .setPositiveButton(
+                        Html.fromHtml("<font color=\"#AA0000\"> Discard </font>")
+                        , new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(getApplicationContext(), MyBooksActivity.class));
+                            }
+                        })
+                .setNegativeButton(
+                        Html.fromHtml("<font color=\"#1976D2\"> Cancel </font>"),
+                        null)
+                .show();
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

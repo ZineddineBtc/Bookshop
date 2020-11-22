@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -35,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class AddBookActivity extends AppCompatActivity {
 
@@ -51,6 +53,7 @@ public class AddBookActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_book);
+        setActionBarTitle("Offer a book");
         getInstances();
         findViewsByIds();
         getUserData();
@@ -223,6 +226,22 @@ public class AddBookActivity extends AppCompatActivity {
                 errorTV.setVisibility(View.GONE);
             }
         }, 1500);
+    }
+    public void setActionBarTitle(String title){
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_arrow_back_white);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(
+                Html.fromHtml("<font color=\"#ffffff\"> "+title+" </font>")
+        );
+    }
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), CoreActivity.class));
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }
 

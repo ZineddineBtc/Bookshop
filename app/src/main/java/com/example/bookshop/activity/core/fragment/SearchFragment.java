@@ -84,9 +84,12 @@ public class SearchFragment extends Fragment {
         searchET.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                noResultsTV.setVisibility(View.GONE);
                 booksList.clear();
+                searchBookAdapter.notifyDataSetChanged();
                 usersList.clear();
-                search(s.toString());
+                searchUserAdapter.notifyDataSetChanged();
+                if(s.toString().length()!=0) search(s.toString());
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -129,7 +132,9 @@ public class SearchFragment extends Fragment {
         booksRV.setVisibility(!tab ? View.VISIBLE : View.GONE);
         usersRV.setVisibility(tab ? View.VISIBLE : View.GONE);
         booksList.clear();
+        searchBookAdapter.notifyDataSetChanged();
         usersList.clear();
+        searchUserAdapter.notifyDataSetChanged();
         if(tab) searchUser(searchET.getText().toString());
         else    searchBook(searchET.getText().toString());
     }
@@ -151,6 +156,7 @@ public class SearchFragment extends Fragment {
         }
     }
     private void searchBook(String queryText){
+        noResultsTV.setVisibility(View.GONE);
         database.collection("books")
                 .orderBy("title")
                 .whereGreaterThanOrEqualTo("title", queryText.toUpperCase())
@@ -160,8 +166,12 @@ public class SearchFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(DocumentSnapshot document: queryDocumentSnapshots.getDocuments()){
-                            getBookFromDocument(document);
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                getBookFromDocument(document);
+                            }
+                        }else{
+                            noResultsTV.setVisibility(View.VISIBLE);
                         }
                     }
                 })
@@ -206,6 +216,7 @@ public class SearchFragment extends Fragment {
                 });
     }
     private void searchUser(String queryText){
+        noResultsTV.setVisibility(View.GONE);
         database.collection("users")
                 .whereGreaterThanOrEqualTo("name", queryText.toUpperCase())
                 .whereLessThanOrEqualTo("name", queryText.toLowerCase()+"\uF8FF")
@@ -213,8 +224,12 @@ public class SearchFragment extends Fragment {
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                     @Override
                     public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(DocumentSnapshot document: queryDocumentSnapshots.getDocuments()){
-                            getUserFromDocument(document);
+                        if(!queryDocumentSnapshots.isEmpty()) {
+                            for (DocumentSnapshot document : queryDocumentSnapshots.getDocuments()) {
+                                getUserFromDocument(document);
+                            }
+                        }else{
+                            noResultsTV.setVisibility(View.VISIBLE);
                         }
                     }
                 })

@@ -53,9 +53,6 @@ public class ProfileActivity extends AppCompatActivity {
         getInstances();
         findViewsByIds();
         getProfilePhoto();
-        setProfileData();
-        setBooksRV();
-        getBooks();
     }
     private void getInstances(){
         profileID = getIntent().getStringExtra(StaticClass.PROFILE_ID);
@@ -93,6 +90,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception exception) {
                 Toast.makeText(getApplicationContext(), "Failed at getting profile photo", Toast.LENGTH_LONG).show();
+                setProfileData();
             }
         });
     }
@@ -100,6 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
         profilePhotoBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
         photoIV.setImageBitmap(Bitmap.createScaledBitmap(profilePhotoBitmap, photoIV.getWidth(),
                 photoIV.getHeight(), false));
+        setProfileData();
     }
     private void setProfileData(){
         database.collection("users")
@@ -116,6 +115,7 @@ public class ProfileActivity extends AppCompatActivity {
                             phoneTV.setText(phone);
                             city = String.valueOf(document.get("city"));
                             cityTV.setText(city);
+                            setBooksRV();
                         }
                     }
                 })
@@ -133,6 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
         booksRV.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
         booksRV.setAdapter(adapter);
+        getBooks();
     }
     private void getBooks(){
         database.collection("books")
@@ -193,8 +194,8 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(new Intent(getApplicationContext(), CoreActivity.class));
     }
     @Override
-    public boolean onNavigateUp() {
+    public boolean onSupportNavigateUp() {
         onBackPressed();
-        return false;
+        return true;
     }
 }
