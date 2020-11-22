@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bookshop.R;
 import com.example.bookshop.StaticClass;
 import com.example.bookshop.activity.core.AddBookActivity;
-import com.example.bookshop.adapter.ProfileBookAdapter;
 import com.example.bookshop.adapter.SearchBookAdapter;
 import com.example.bookshop.adapter.SearchUserAdapter;
 import com.example.bookshop.model.Book;
